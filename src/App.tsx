@@ -5,18 +5,20 @@ import { Canvas, useFrame } from "@react-three/fiber";
 function Particles() {
   const count = 4000;
   const mesh = useRef<THREE.Points>(null);
+
+  // 랜덤 파티클 위치 메모이제이션
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count * 3; i++) {
-      pos[i] = (Math.random() - 0.5) * 12;
+      pos[i] = (Math.random() - 0.5) * 10;
     }
     return pos;
   }, [count]);
 
   useFrame(() => {
     if (mesh.current) {
-      mesh.current.rotation.x += 0.0005;
-      mesh.current.rotation.y += 0.001;
+      mesh.current.rotation.x += 0.0006;
+      mesh.current.rotation.y += 0.0012;
     }
   });
 
@@ -52,17 +54,14 @@ export default function App() {
       <Canvas
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          height: "100%",
-          width: "100%",
+          inset: 0,
         }}
         camera={{ position: [0, 0, 5] }}
       >
         <Particles />
       </Canvas>
 
-      {/* UI */}
+      {/* 포털 UI */}
       <div
         style={{
           position: "relative",
@@ -73,71 +72,101 @@ export default function App() {
           justifyContent: "center",
           height: "100%",
           textAlign: "center",
-          padding: "1rem",
+          padding: "1.5rem",
         }}
       >
-        <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>
+        <h1
+          style={{
+            fontSize: "clamp(2rem, 4vw, 3rem)",
+            marginBottom: "1rem",
+            letterSpacing: "0.05em",
+          }}
+        >
           JUHA Magic Portal ✨
         </h1>
-        <p style={{ color: "#aaa", marginBottom: "2rem" }}>
+
+        <p
+          style={{
+            color: "#aaa",
+            marginBottom: "2.5rem",
+            fontSize: "clamp(0.9rem, 2vw, 1rem)",
+          }}
+        >
           Choose your creative tool
         </p>
+
+        {/* 버튼 그룹 */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             gap: "1.5rem",
-            width: "250px",
+            width: "min(250px, 80%)",
           }}
         >
-          <a
-            href="https://juha-blog-thumbnail.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() =>
+              window.open("https://juha-blog-thumbnail.vercel.app", "_blank")
+            }
             style={{
-              textDecoration: "none",
               padding: "1rem",
               borderRadius: "12px",
-              backgroundColor: "#222",
+              backgroundColor: "#1e1e1e",
               color: "#fff",
-              fontWeight: "bold",
-              transition: "0.3s",
+              fontWeight: 600,
+              fontSize: "1rem",
+              border: "none",
+              cursor: "pointer",
+              transition: "background 0.3s, transform 0.2s",
             }}
-            onMouseOver={(e) =>
-              (e.currentTarget.style.backgroundColor = "#444")
-            }
-            onMouseOut={(e) =>
-              (e.currentTarget.style.backgroundColor = "#222")
-            }
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = "#383838";
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = "#1e1e1e";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
           >
             Thumbnail Generator
-          </a>
+          </button>
 
-          <a
-            href="https://juha-img-optimizer.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() =>
+              window.open("https://juha-img-optimizer.vercel.app", "_blank")
+            }
             style={{
-              textDecoration: "none",
               padding: "1rem",
               borderRadius: "12px",
-              backgroundColor: "#222",
+              backgroundColor: "#1e1e1e",
               color: "#fff",
-              fontWeight: "bold",
-              transition: "0.3s",
+              fontWeight: 600,
+              fontSize: "1rem",
+              border: "none",
+              cursor: "pointer",
+              transition: "background 0.3s, transform 0.2s",
             }}
-            onMouseOver={(e) =>
-              (e.currentTarget.style.backgroundColor = "#444")
-            }
-            onMouseOut={(e) =>
-              (e.currentTarget.style.backgroundColor = "#222")
-            }
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = "#383838";
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = "#1e1e1e";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
           >
             Image Optimizer
-          </a>
+          </button>
         </div>
 
-        <footer style={{ marginTop: "3rem", fontSize: "0.8rem", color: "#777" }}>
+        {/* 푸터 */}
+        <footer
+          style={{
+            marginTop: "3rem",
+            fontSize: "0.85rem",
+            color: "#777",
+          }}
+        >
           2025 © All rights reserved to 우리집 도서관
         </footer>
       </div>
