@@ -2,11 +2,10 @@ import React, { useRef, useMemo } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 
-/** 오렌지 테마용 파티클 */
+/** 오렌지 테마 파티클 */
 function Particles() {
   const count = 4200;
   const mesh = useRef<THREE.Points>(null);
-
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
     for (let i = 0; i < count * 3; i++) arr[i] = (Math.random() - 0.5) * 12;
@@ -29,8 +28,7 @@ function Particles() {
           itemSize={3}
         />
       </bufferGeometry>
-      {/* 오렌지 테마에 맞춘 밝은 포인트 */}
-      <pointsMaterial size={0.018} color={"#fff3e6"} />
+      <pointsMaterial size={0.018} color="#fff3e6" />
     </points>
   );
 }
@@ -43,23 +41,21 @@ export default function App() {
         height: "100vh",
         width: "100vw",
         overflow: "hidden",
-        // 오렌지 테마 그라디언트(상단 진하고 하단 깊음)
+        // ✅ 오렌지 그라디언트 배경
         background:
           "radial-gradient(1200px 800px at 20% 10%, #ffb26b 0%, #ff8a3d 35%, #ff6a00 60%, #9a3700 100%)",
         color: "#1a1a1a",
-        fontFamily: "'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+        fontFamily:
+          "'Noto Sans KR', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
       }}
     >
       {/* 3D 입자 배경 */}
-      <Canvas
-        style={{ position: "absolute", inset: 0 }}
-        camera={{ position: [0, 0, 5] }}
-      >
+      <Canvas style={{ position: "absolute", inset: 0 }} camera={{ position: [0, 0, 5] }}>
         <ambientLight intensity={0.4} />
         <Particles />
       </Canvas>
 
-      {/* UI 레이어 */}
+      {/* UI */}
       <div
         style={{
           position: "relative",
@@ -68,7 +64,7 @@ export default function App() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: "24px",
+          padding: 24,
         }}
       >
         <div
@@ -78,10 +74,9 @@ export default function App() {
             background:
               "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,245,235,0.85))",
             borderRadius: 24,
-            boxShadow:
-              "0 12px 40px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
+            boxShadow: "0 12px 40px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
             border: "1px solid rgba(255,255,255,0.55)",
-            padding: "28px",
+            padding: 28,
           }}
         >
           {/* 헤더 */}
@@ -111,7 +106,7 @@ export default function App() {
             </p>
           </div>
 
-          {/* 카드형 버튼 영역 */}
+          {/* 카드형 버튼: 맨 위에 Paper Frame 추가 */}
           <div
             style={{
               display: "grid",
@@ -120,9 +115,9 @@ export default function App() {
               marginTop: 8,
             }}
           >
-            {/* 1) Juha’s Paper Frame : 맨 위 배치 */}
+            {/* 1) Juha’s Paper Frame */}
             <a
-              href="https://juha-paper-frame.vercel.app"
+              href="https://juha-paper-frame.vercel.app" // ← Paper Frame 실제 도메인으로 교체
               target="_blank"
               rel="noopener noreferrer"
               style={buttonStyle("#4a2300")}
